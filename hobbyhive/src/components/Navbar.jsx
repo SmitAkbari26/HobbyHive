@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FiUser } from "react-icons/fi";
 import { PiNotification } from "react-icons/pi";
 import { FiSearch } from "react-icons/fi";
+import useAuthContext from "../context/AuthContext";
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    
+    const [showDropdown, setShowDropdown] = useState(false);
+
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+
+    const toggleDropdown = () => {
+        setShowDropdown(!showDropdown);
+    };
+
+    const { user, getUser, logout } = useAuthContext();
 
     return (
         <>
@@ -149,7 +157,7 @@ const Navbar = () => {
                                         to="/"
                                         className="w-8 h-8 flex justify-center items-center  text-gray-700 rounded-full hover:text-primary md:hover:bg-transparent hover:ring-2 hover:ring-primary"
                                     >
-                                        <FiSearch className="w-6 h-6 transition-transform transform scale-100 hover:scale-90" />
+                                        <FiSearch className="w-6 h-6 transition-transform transform scale-100 hover:scale-90 sm" />
                                     </NavLink>
                                 </li>
                                 <li>
@@ -160,13 +168,55 @@ const Navbar = () => {
                                         <PiNotification className="w-6 h-6 transition-transform transform scale-100 hover:scale-90" />
                                     </NavLink>
                                 </li>
-                                <li>
-                                    <NavLink
-                                        to="/login"
-                                        className="w-8 h-8 flex justify-center items-center  text-gray-700 rounded-full hover:text-accent md:hover:bg-transparent hover:ring-2 hover:ring-accent"
-                                    >
-                                        <FiUser className="w-6 h-6 transition-transform transform scale-100 hover:scale-90" />
-                                    </NavLink>
+                                <li className="relative">
+                                    {user ? ( // If there is a user, display the dropdown
+                                        <>
+                                            <div
+                                                className="w-8 h-8 flex justify-center items-center text-gray-700 rounded-full hover:text-accent md:hover:bg-transparent hover:ring-2 hover:ring-accent cursor-pointer"
+                                                onClick={toggleDropdown}
+                                            >
+                                                <FiUser className="w-6 h-6 transition-transform transform scale-100 hover:scale-90" />
+                                            </div>
+
+                                            {showDropdown && (
+                                                <div className="absolute top-full right-0 mt-2 bg-white rounded shadow-2xl ring-2 ring-primary hover:ring-accent hover:transform hover:duration-500 font-roboto tracking-wider z-10">
+                                                    <div className="p-5 text-center">
+                                                        <>
+                                                            <div className="mb-2 text-gray-500 flex items-center">
+                                                                Welcome,{" "}
+                                                                <span className="text-md font-semibold ml-1 text-gray-500">
+                                                                    {user.name}
+                                                                </span>
+                                                            </div>
+                                                            <div className="mb-2 text-gray-600 hover:">
+                                                                <NavLink
+                                                                    to="/profile"
+                                                                    className="relative group block py-2 pl-3 pr-4 text-gray-700 rounded md:bg-transparent md:text-gray-700 md:p-0 hover:text-primary"
+                                                                >
+                                                                    Profile
+                                                                </NavLink>
+                                                            </div>
+                                                            {/* You can display other user information here */}
+                                                            <button
+                                                                className="text-secondary font-semibold hover:text-red-500 -tracking-tighter hover:transition hover:duration-300"
+                                                                onClick={logout}
+                                                            >
+                                                                Logout
+                                                            </button>
+                                                        </>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </>
+                                    ) : (
+                                        // If there is no user, display the login NavLink
+                                        <NavLink
+                                            to="/login"
+                                            className="w-8 h-8 flex justify-center items-center text-gray-700 rounded-full hover:text-gray-500 md:hover:bg-transparent hover:ring-2 hover:ring-gray-500"
+                                        >
+                                            <FiUser className="w-6 h-6 transition-transform transform scale-100 hover:scale-90" />
+                                        </NavLink>
+                                    )}
                                 </li>
                             </div>
                         </ul>

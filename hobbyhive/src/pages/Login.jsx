@@ -1,6 +1,27 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import useAuthContext from "../context/AuthContext";
 
 const Login = () => {
+    const { login, errors } = useAuthContext();
+
+    const [formData, setFormData] = useState({
+        email: "",
+        password: "",
+    });
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        login(formData);
+    };
+
     return (
         <>
             <div className="h-screen w-full font-roboto tracking-wider flex flex-col py-12 px-10 lg:px-8">
@@ -18,7 +39,12 @@ const Login = () => {
                         <span className="text-gray-900">to your&nbsp;</span>
                         <span className="text-secondary">Account</span>
                     </div>
-                    <form className="mt-10 space-y-6" action="#" method="POST">
+                    <form
+                        className="mt-10 space-y-6"
+                        action="#"
+                        method="POST"
+                        onSubmit={handleSubmit}
+                    >
                         <div>
                             <label
                                 htmlFor="email"
@@ -34,7 +60,14 @@ const Login = () => {
                                     autoComplete="email"
                                     required
                                     className="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6 focus:outline-none focus:ring-text-gray-900 caret-accent"
+                                    value={formData.email}
+                                    onChange={handleChange}
                                 />
+                                {errors.email && (
+                                    <p className="text-red-500 pt-1 text-center text-sm">
+                                        {errors.email[0]}
+                                    </p>
+                                )}
                             </div>
                         </div>
 
@@ -48,7 +81,7 @@ const Login = () => {
                                 </label>
                                 <div className="text-sm">
                                     <NavLink
-                                        to="#"
+                                        to="/forgot-password"
                                         className="font-semibold text-primary hover:transition hover:duration-500 hover:text-secondary"
                                     >
                                         Forgot password?
@@ -63,7 +96,14 @@ const Login = () => {
                                     autoComplete="current-password"
                                     required
                                     className="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6 focus:outline-none focus-ring caret-accent"
+                                    value={formData.password}
+                                    onChange={handleChange}
                                 />
+                                {errors.password && (
+                                    <p className="text-red-500 pt-1 text-center text-sm">
+                                        {errors.password[0]}
+                                    </p>
+                                )}
                             </div>
                         </div>
 
