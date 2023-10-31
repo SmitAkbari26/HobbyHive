@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\VerifyEmailController;
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,3 +29,5 @@ Route::post('/email/verify/resend', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth:api', 'throttle:6,1'])->name('verification.send');
+
+

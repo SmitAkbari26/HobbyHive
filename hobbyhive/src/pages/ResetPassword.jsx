@@ -11,6 +11,7 @@ const ResetPassword = () => {
     const [message, setMessage] = useState("");
     const [status, setStatus] = useState(null);
     const { csrf } = useAuthContext();
+    const [isLoading, setIsLoading] = useState(false);
 
     const [searchParams] = useSearchParams();
 
@@ -22,6 +23,7 @@ const ResetPassword = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         await csrf();
         setErrors({});
         setStatus(null);
@@ -42,11 +44,26 @@ const ResetPassword = () => {
                 // Other errors
                 console.error(error);
             }
+        } finally {
+            setIsLoading(false); // Stop the loading indicator, whether the request succeeds or fails
         }
     };
 
     return (
         <>
+            {isLoading && (
+                <div className="loader-container">
+                    <div className="honeycomb">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            )}
             <div className="h-screen w-full font-roboto tracking-wider flex flex-col py-12 px-10 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <img
@@ -63,7 +80,7 @@ const ResetPassword = () => {
                         <span className="text-secondary">Password</span>
                     </div>
                     {status && (
-                        <div className="text-green-500 p-2 text-center text-lg">
+                        <div className="text-green-500 p-2 text-center text-md">
                             {status}
                         </div>
                     )}
@@ -140,8 +157,9 @@ const ResetPassword = () => {
                             <button
                                 type="submit"
                                 className="flex w-full tracking-widest justify-center rounded-md bg-secondary px-3 py-2 text-sm font-semibold leading-6 text-white hover:shadow-xl hover:bg-primary hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent hover:transition hover:duration-600 hover:ring-2 hover:ring-accent"
+                                disabled={isLoading}
                             >
-                                Reset
+                                {isLoading ? "Resetting..." : "Reset"}
                             </button>
                         </div>
                         <p className="mt-10 text-center text-sm text-gray-500">

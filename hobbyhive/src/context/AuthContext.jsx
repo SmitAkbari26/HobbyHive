@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import Axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
@@ -22,7 +22,6 @@ export const AuthProvider = ({ children }) => {
         await csrf();
         setErrors({});
         try {
-            console.log(data);
             await Axios.post("/login", data);
             await getUser();
             navigate("/");
@@ -45,8 +44,8 @@ export const AuthProvider = ({ children }) => {
             setSuccessMessage(
                 "Registration successful. Check your email for verification."
             );
-            await getUser();
-            navigate("/");
+            // await getUser();
+            // navigate("/");
         } catch (error) {
             if (error.response && error.response.status === 422) {
                 // Validation errors
@@ -64,11 +63,11 @@ export const AuthProvider = ({ children }) => {
         });
     };
 
-    useEffect(() => {
-        if (!user) {
-            getUser();
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (!user) {
+    //         getUser();
+    //     }
+    // }, []);
 
     return (
         <AuthContext.Provider

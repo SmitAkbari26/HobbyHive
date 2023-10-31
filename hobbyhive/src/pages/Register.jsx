@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import useAuthContext from "../context/AuthContext";
+import "../index.css";
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -11,6 +12,8 @@ const Register = () => {
 
     const { register, errors, successMessage } = useAuthContext();
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -20,11 +23,33 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        register(formData);
+        setIsLoading(true); // Start loading animation
+        register(formData)
+            .then(() => {
+                // Handle success
+                setIsLoading(false); // Stop loading animation
+            })
+            .catch((error) => {
+                // Handle error
+                setIsLoading(false); // Stop loading animation
+            });
     };
 
     return (
         <>
+            {isLoading && (
+                <div className="loader-container">
+                    <div className="honeycomb">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            )}
             <div className="h-screen w-full font-roboto tracking-wider flex flex-col py-5 px-10 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <img
@@ -41,11 +66,11 @@ const Register = () => {
                         <span className="text-secondary">Account</span>
                     </div>
                     {successMessage && (
-                        <p className="text-green-500 p-2 text-center text-lg">
+                        <p className="text-green-500 p-2 text-center text-md">
                             {successMessage}
                         </p>
                     )}
-                
+
                     <form
                         className="mt-4 space-y-6"
                         action="#"
@@ -160,8 +185,9 @@ const Register = () => {
                             <button
                                 type="submit"
                                 className="flex w-full tracking-widest justify-center rounded-md bg-secondary px-3 py-2 text-sm font-semibold leading-6 text-white hover:shadow-xl hover:bg-primary hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent hover:transition hover:duration-600 hover:ring-2 hover:ring-accent"
+                                disabled={isLoading}
                             >
-                                SignUp
+                                {isLoading ? "Signing Up..." : "SignUp"}
                             </button>
                         </div>
                     </form>

@@ -20,13 +20,13 @@ class VerifyEmailController extends Controller
         $user = User::find($request->route('id'));
 
         if ($user->hasVerifiedEmail()) {
-            return redirect(env('FRONT_URL') . '/email/verify/already-success');
+            return redirect('http://localhost:5173/email/verify/already-success');
         }
 
         if ($user->markEmailAsVerified()) {
             event(new Verified($user));
         }
 
-        return redirect(env('FRONT_URL') . '/email/verify/success');
+        return redirect('http://localhost:5173/email/verify/success');
     }
 }

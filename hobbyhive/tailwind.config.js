@@ -15,6 +15,9 @@ export default {
                 accent: "#9747FF",
                 background: "#F5F5F5",
             },
+            boxShadow: {
+                accent: "0 1px 1px -1px #9747FF, 0 1px 3px -1px #9747FF",
+            },
         },
     },
     plugins: [],

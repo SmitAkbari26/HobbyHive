@@ -3,7 +3,10 @@ import { NavLink } from "react-router-dom";
 import useAuthContext from "../context/AuthContext";
 
 const Login = () => {
+
     const { login, errors } = useAuthContext();
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const [formData, setFormData] = useState({
         email: "",
@@ -19,11 +22,33 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        login(formData);
+        setIsLoading(true); // Start loading animation
+        login(formData)
+            .then(() => {
+                // Handle success
+                setIsLoading(false); // Stop loading animation
+            })
+            .catch((error) => {
+                // Handle error
+                setIsLoading(false); // Stop loading animation
+            });
     };
 
     return (
         <>
+            {isLoading && (
+                <div className="loader-container">
+                    <div className="honeycomb">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            )}
             <div className="h-screen w-full font-roboto tracking-wider flex flex-col py-12 px-10 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <img
@@ -111,8 +136,9 @@ const Login = () => {
                             <button
                                 type="submit"
                                 className="flex w-full tracking-widest justify-center rounded-md bg-primary px-3 py-2 text-sm font-semibold leading-6 text-white hover:shadow-xl hover:bg-secondary hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent hover:transition hover:duration-600 hover:ring-2 hover:ring-accent"
+                                disabled={isLoading}
                             >
-                                LogIn
+                                {isLoading ? "Logging in..." : "LogIn"}
                             </button>
                         </div>
                     </form>

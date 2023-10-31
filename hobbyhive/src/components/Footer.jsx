@@ -45,7 +45,7 @@ function Footer() {
                                 </li>
                                 <li className="mb-2">
                                     <NavLink
-                                        to="/about"
+                                        to="/explore"
                                         className="hover:text-secondary transition duration-500"
                                     >
                                         Explore
@@ -53,7 +53,7 @@ function Footer() {
                                 </li>
                                 <li className="mb-2">
                                     <NavLink
-                                        to="/services"
+                                        to="/resources"
                                         className="hover:text-secondary transition duration-500"
                                     >
                                         Resources
@@ -61,33 +61,15 @@ function Footer() {
                                 </li>
                                 <li className="mb-2">
                                     <NavLink
-                                        to="/contact"
+                                        to="/community"
                                         className="hover:text-secondary transition duration-500"
                                     >
                                         Community
                                     </NavLink>
                                 </li>
-                            </ul>
-                            <ul className="text-gray-500">
                                 <li className="mb-2">
                                     <NavLink
-                                        to="/"
-                                        className="hover:text-secondary transition duration-500"
-                                    >
-                                        Workshops
-                                    </NavLink>
-                                </li>
-                                <li className="mb-2">
-                                    <NavLink
-                                        to="/about"
-                                        className="hover:text-secondary transition duration-500"
-                                    >
-                                        Webinars
-                                    </NavLink>
-                                </li>
-                                <li className="mb-2">
-                                    <NavLink
-                                        to="/services"
+                                        to="/faqs"
                                         className="hover:text-secondary transition duration-500"
                                     >
                                         FAQs

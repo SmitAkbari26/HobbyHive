@@ -17,7 +17,7 @@ const Navbar = () => {
         setShowDropdown(!showDropdown);
     };
 
-    const { user, getUser, logout } = useAuthContext();
+    const { user, logout } = useAuthContext();
 
     return (
         <>
@@ -90,7 +90,7 @@ const Navbar = () => {
                             </li>
                             <li>
                                 <NavLink
-                                    to="/"
+                                    to="/explore"
                                     className="relative group block py-2 pl-3 pr-4 text-gray-700 rounded md:bg-transparent md:text-gray-700 md:p-0 hover:text-primary"
                                 >
                                     Explore
@@ -99,7 +99,7 @@ const Navbar = () => {
                             </li>
                             <li>
                                 <NavLink
-                                    to="/"
+                                    to="/resources"
                                     className="relative group block py-2 pl-3 pr-4 text-gray-700 rounded md:bg-transparent md:text-gray-700 md:p-0 hover:text-primary"
                                 >
                                     Resources
@@ -108,7 +108,7 @@ const Navbar = () => {
                             </li>
                             <li>
                                 <NavLink
-                                    to="/"
+                                    to="/community"
                                     className="relative group block py-2 pl-3 pr-4 text-gray-700 rounded md:bg-transparent md:text-gray-700 md:p-0 hover:text-primary"
                                 >
                                     Community
@@ -117,16 +117,7 @@ const Navbar = () => {
                             </li>
                             <li>
                                 <NavLink
-                                    to="/"
-                                    className="relative group block py-2 pl-3 pr-4 text-gray-700 rounded md:bg-transparent md:text-gray-700 md:p-0 hover:text-primary"
-                                >
-                                    Workshops & Webinars
-                                    <span className="absolute inset-x-0 bottom-0 h-[10%] bg-secondary transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink
-                                    to="/"
+                                    to="/contact"
                                     className="relative group block py-2 pl-3 pr-4 text-gray-700 rounded md:bg-transparent md:text-gray-700 md:p-0 hover:text-primary"
                                 >
                                     Contact
@@ -135,7 +126,7 @@ const Navbar = () => {
                             </li>
                             <li>
                                 <NavLink
-                                    to="/"
+                                    to="/faqs"
                                     className="relative group block py-2 pl-3 pr-4 text-gray-700 rounded md:bg-transparent md:text-gray-700 md:p-0 hover:text-primary"
                                 >
                                     FAQs
