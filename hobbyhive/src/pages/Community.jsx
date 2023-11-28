@@ -2,61 +2,27 @@ import React, { useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import PrimaryButton from "../components/PrimaryButton";
 import SecondaryButton from "../components/SecondaryButton";
+import Axios from "../api/axios";
 
 const Community = () => {
-    const [communities, setCommunities] = useState([
-        {
-            id: 1,
-            name: "Art Lovers",
-            description:
-                "A community for artists to share and discuss their work.",
-            members: 532,
-            popularity: 4.7,
-        },
-        {
-            id: 2,
-            name: "Tech Enthusiasts",
-            description:
-                "Connect with tech-savvy individuals and learn from experts.",
-            members: 718,
-            popularity: 4,
-        },
-        {
-            id: 3,
-            name: "Foodies United",
-            description: "A culinary journey through the world of cooking.",
-            members: 621,
-            popularity: 1,
-        },
-        {
-            id: 4,
-            name: "Fitness Fanatics",
-            description: "Stay active, get fit, and share workout tips.",
-            members: 424,
-            popularity: 2,
-        },
-    ]);
-
     const [newCommunity, setNewCommunity] = useState({
         name: "",
         description: "",
+        members: 0,
+        rating: 0,
+        username: localStorage.getItem("userName"),
     });
 
-    const handleCreateCommunity = () => {
-        const newCommunityInfo = {
-            id: communities.length + 1,
-            members: 0,
-            popularity: 0,
-            ...newCommunity,
-        };
-
-        setCommunities([...communities, newCommunityInfo]);
-        setNewCommunity({ name: "", description: "" });
+    const handleCreateCommunity = async () => {
+        try {
+            const response = await Axios.post("/communities", newCommunity);
+            console.log(response.data);
+        } catch (error) {
+            console.error(error.response.data);
+        }
     };
 
     const handleJoinCommunity = (communityId) => {
-        // Implement the logic to join a community here.
-        // You can add the user to the community's members.
         console.log(`Joined Community ${communityId}`);
     };
 
@@ -68,7 +34,7 @@ const Community = () => {
                     <span className="text-gray-900">Our Vibrant </span>
                     <span className="text-secondary">Community</span>
                 </h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {communities.map((community) => (
                         <div
                             key={community.id}
@@ -108,7 +74,7 @@ const Community = () => {
                             </div>
                         </div>
                     ))}
-                </div>
+                </div> */}
                 <div className="mt-8">
                     <h1 className="text-3xl font-extrabold text-gray-900 mb-8 py-2 leading-9 tracking-wider">
                         <span className="text-primary">Create&nbsp;</span>

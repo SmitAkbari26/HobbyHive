@@ -24,6 +24,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true); // Start loading animation
+        localStorage.setItem("userName", formData.name);
         register(formData)
             .then(() => {
                 // Handle success

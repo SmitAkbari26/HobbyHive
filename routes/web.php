@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\CommunityController;
 
 
 /*
@@ -25,6 +26,6 @@ Route::get('/', function () {
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/insert-explore-data', [ExploreController::class, 'insertExploreData']);
 Route::get('/create-resource', [ResourceController::class, 'insertResourceData']);
-
+Route::post('/communities', [CommunityController::class, 'create']);
 
 require __DIR__.'/auth.php';

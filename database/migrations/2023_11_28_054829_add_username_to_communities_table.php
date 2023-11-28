@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('resources', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('communities', function (Blueprint $table) {
+            $table->string('username');
         });
     }
 
@@ -22,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('resources');
+        Schema::table('communities', function (Blueprint $table) {
+            $table->string('username');
+        });
     }
 };
