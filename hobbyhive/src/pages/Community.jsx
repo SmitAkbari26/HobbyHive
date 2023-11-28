@@ -3,6 +3,7 @@ import { AiFillStar } from "react-icons/ai";
 import PrimaryButton from "../components/PrimaryButton";
 import SecondaryButton from "../components/SecondaryButton";
 import Axios from "../api/axios";
+import CommunityList from "../components/CommunityList";
 
 const Community = () => {
     const [newCommunity, setNewCommunity] = useState({
@@ -34,47 +35,9 @@ const Community = () => {
                     <span className="text-gray-900">Our Vibrant </span>
                     <span className="text-secondary">Community</span>
                 </h1>
-                {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {communities.map((community) => (
-                        <div
-                            key={community.id}
-                            className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transform hover:-translate-y-2 transition-all duration-300"
-                        >
-                            <h2 className="text-xl font-semibold text-primary">
-                                {community.name}
-                            </h2>
-                            <hr className="my-3" />
-                            <p className="text-gray-600">
-                                {community.description}
-                            </p>
-                            <div className="flex items-center mt-2">
-                                <p className="text-gray-700">
-                                    Members : {community.members} | Popularity : {" "}
-                                </p>
-                                <div className="text-primary">
-                                    {[...Array(5)].map((_, index) => (
-                                        <AiFillStar
-                                            key={index}
-                                            className={`h-4 w-4 fill-current inline ${
-                                                index < community.popularity
-                                                    ? "text-yellow-500"
-                                                    : "text-gray-300"
-                                            }`}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
-                            <div className="p-5">
-                                <PrimaryButton
-                                    text="Join Community"
-                                    onClick={() =>
-                                        handleJoinCommunity(community.id)
-                                    }
-                                />
-                            </div>
-                        </div>
-                    ))}
-                </div> */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <CommunityList />
+                </div>
                 <div className="mt-8">
                     <h1 className="text-3xl font-extrabold text-gray-900 mb-8 py-2 leading-9 tracking-wider">
                         <span className="text-primary">Create&nbsp;</span>
