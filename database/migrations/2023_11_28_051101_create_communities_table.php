@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->integer('members')->nullable();
             $table->decimal('rating', 3, 2)->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }
