@@ -15,6 +15,7 @@ import Contact from "./pages/Contact";
 import Explore from "./pages/Explore";
 import Resources from "./pages/Resources";
 import Community from "./pages/Community";
+import Admin from "./pages/Admin";
 
 const App = () => {
     const location = useLocation();
@@ -24,6 +25,7 @@ const App = () => {
         location.pathname === "/forgot-password" ||
         location.pathname === "/profile" ||
         location.pathname === "/email/verify/success" ||
+        location.pathname === "/admin" ||
         location.pathname.startsWith("/password-reset");
 
     return (
@@ -35,6 +37,9 @@ const App = () => {
                 </Route>
                 <Route>
                     <Route exact path="/" element={<Home />} />
+                </Route>
+                <Route>
+                    <Route exact path="/admin" element={<Admin />} />
                 </Route>
                 <Route>
                     <Route exact path="/faqs" element={<Faqs />} />
