@@ -27,5 +27,6 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 Route::get('/insert-explore-data', [ExploreController::class, 'insertExploreData']);
 Route::get('/create-resource', [ResourceController::class, 'insertResourceData']);
 Route::post('/communities', [CommunityController::class, 'create']);
+Route::get('/communities', [CommunityController::class, 'index']);
 
 require __DIR__.'/auth.php';

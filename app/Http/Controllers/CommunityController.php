@@ -21,4 +21,11 @@ class CommunityController extends Controller
 
         return response()->json(['message' => 'Community created successfully', 'community' => $community], 201);
     }
+
+    public function index()
+    {
+        $communities = Community::all();
+        return response()->json(['communities' => $communities]);
+    }
+
 }
