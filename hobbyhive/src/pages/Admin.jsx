@@ -4,6 +4,10 @@ import { BsUpload } from "react-icons/bs";
 import { GrHistory, GrStatusUnknown } from "react-icons/gr";
 import { BiLogOutCircle, BiSolidDashboard } from "react-icons/bi";
 import { FaFolder, FaMoneyCheck, FaUsers } from "react-icons/fa";
+import CommunityAdmin from "./CommunityAdmin";
+import ExploreAdmin from "./ExploreAdmin";
+import ResourceAdmin from "./ResourceAdmin";
+import DashboardAdmin from "./DashboardAdmin";
 
 const Admin = () => {
     const navigate = useNavigate();
@@ -102,19 +106,18 @@ const Admin = () => {
                 </div>
             </div>
             <div className="col-span-4 p-5 overflow-y-scroll">
-                <h1>This is Right Section</h1>
                 {/* Right Section */}
-                {/* {page === "dashboard" ? (
-                  <AdminDash />
-              ) : page === "review" ? (
-                  <Review />
-              ) : page === "history" ? (
-                  <History />
-              ) : page === "payouts" ? (
-                  <Payouts />
+                {page === "dashboard" ? (
+                  <DashboardAdmin />
+              ) : page === "community" ? (
+                  <CommunityAdmin />
+              ) : page === "explore" ? (
+                  <ExploreAdmin />
+              ) : page === "resources" ? (
+                  <ResourceAdmin />
               ) : (
                   ""
-              )} */}
+              )}
             </div>
         </div>
     );
