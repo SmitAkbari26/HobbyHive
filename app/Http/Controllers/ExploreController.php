@@ -7,20 +7,34 @@ use App\Models\Explore;
 
 class ExploreController extends Controller
 {
-    public function insertExploreData()
+    public function addExplore(Request $request)
     {
-        $data = [
-            [
-                'title' => "Art & Creativity",
-                'description' => "Unleash your creativity with various art forms.",
-                'image' => "../public/art.svg",
-            ],
-        ];
+        $data = $request->validate([
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'image' => 'required|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'subcategories' => 'string',
+        ]);
 
-        foreach ($data as $item) {
-            Explore::create($item);
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images/explores', 'public');
+            $data['image'] = $imagePath;
         }
 
-        return response()->json(['message' => 'Data inserted successfully']);
+        Explore::create($data);
+
+        return response()->json(['message' => 'Record added successfully']);
+    }
+
+    public function index()
+    {
+        $exploreData = Explore::all();
+        return response()->json(['exploreData' => $exploreData]);
+    }
+
+    public function show($id)
+    {
+        $exploreItem = Explore::find($id);
+        return response()->json($exploreItem);
     }
 }

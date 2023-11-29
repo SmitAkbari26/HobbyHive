@@ -9,5 +9,10 @@ class Explore extends Model
 {
     use HasFactory;
     protected $table = 'explore';
-    protected $fillable = ['title', 'description', 'image', 'new'];
+
+    protected $fillable = ['title', 'description', 'image', 'new', 'subcategories',];
+
+    protected $casts = [
+        'subcategories' => 'array',
+    ];
 }

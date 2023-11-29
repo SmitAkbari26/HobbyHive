@@ -30,5 +30,8 @@ Route::post('/communities', [CommunityController::class, 'create']);
 Route::get('/communities', [CommunityController::class, 'index']);
 Route::put('/communities/{id}/approve', [CommunityController::class, 'approve']);
 Route::put('/communities/{id}/reject', [CommunityController::class, 'reject']);
+Route::post('/add-explore', [ExploreController::class, 'addExplore']);
+Route::get('/explore', [ExploreController::class, 'index']);
+Route::get('/explore/{id}', [ExploreController::class, 'show']);
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

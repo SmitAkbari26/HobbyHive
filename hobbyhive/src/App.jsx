@@ -16,6 +16,7 @@ import Explore from "./pages/Explore";
 import Resources from "./pages/Resources";
 import Community from "./pages/Community";
 import Admin from "./pages/Admin";
+import ExploreDetails from "./components/ExploreDetails";
 
 const App = () => {
     const location = useLocation();
@@ -49,6 +50,11 @@ const App = () => {
                 </Route>
                 <Route>
                     <Route exact path="/explore" element={<Explore />} />
+                    <Route
+                        exact
+                        path="/explore/:id"
+                        element={<ExploreDetails />}
+                    />
                 </Route>
                 <Route>
                     <Route exact path="/resources" element={<Resources />} />

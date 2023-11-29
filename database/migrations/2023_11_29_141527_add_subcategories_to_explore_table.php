@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('explore', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('description');
-            $table->boolean('new')->default(true);
-            $table->string('image');
-            $table->timestamps();
+        Schema::table('explore', function (Blueprint $table) {
+            $table->json('subcategories')->nullable();
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('explore');
+        Schema::table('explore', function (Blueprint $table) {
+            $table->dropColumn('subcategories');
+        });
     }
 };
