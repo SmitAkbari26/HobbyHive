@@ -35,9 +35,7 @@ const Community = () => {
                     <span className="text-gray-900">Our Vibrant </span>
                     <span className="text-secondary">Community</span>
                 </h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <CommunityList />
-                </div>
                 <div className="mt-8">
                     <h1 className="text-3xl font-extrabold text-gray-900 mb-8 py-2 leading-9 tracking-wider">
                         <span className="text-primary">Create&nbsp;</span>

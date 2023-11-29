@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { BsUpload } from "react-icons/bs";
 import { GrHistory, GrStatusUnknown } from "react-icons/gr";
 import { BiLogOutCircle, BiSolidDashboard } from "react-icons/bi";
@@ -20,8 +20,9 @@ const Admin = () => {
     function handleLogout(){
         
     }
+
     return (
-        <div className="w-full h-screen grid grid-cols-5 divide-x-2 divide-indigo-500">
+        <div className="w-full h-screen grid grid-cols-5 divide-x-2 font-roboto tracking-wider">
             <div className="col-span-1 grid grid-rows-5 gap-2">
                 {/* Left Section   */}
                 <div
@@ -31,10 +32,29 @@ const Admin = () => {
                     }}
                 >
                     <div className="flex flex-col items-center justify-center py-5">
-                        <h1 className="font-bold text-3xl">HoobyHive</h1>
-                        <p className="uppercase font-bold text-sm">
-                            Discover, share, and connect
-                        </p>
+                        <NavLink to="/" className="flex items-center">
+                            <div className="w-10 h-10 mr-2">
+                                <img
+                                    src="../public/logo.png"
+                                    alt="HobbyHive Logo"
+                                />
+                            </div>
+                            <span className="font-irish text-secondary text-2xl font-semibold whitespace-nowrap tracking-widest">
+                                H
+                            </span>
+                            <span className="font-irish text-gray-800 text-2xl font-semibold whitespace-nowrap tracking-widest">
+                                obby
+                            </span>
+                            <span className="font-irish text-primary text-2xl font-semibold whitespace-nowrap tracking-widest">
+                                H
+                            </span>
+                            <span className="font-irish text-gray-800 text-2xl font-semibold whitespace-nowrap tracking-widest">
+                                iv
+                            </span>
+                            <span className="font-irish text-accent text-2xl font-semibold whitespace-nowrap tracking-widest">
+                                e
+                            </span>
+                        </NavLink>
                     </div>
                     <hr className="w-[80%]" />
                 </div>
@@ -42,8 +62,8 @@ const Admin = () => {
                     <div
                         className={`w-full flex px-5 py-2 shadow-md items-center gap-5 font-semibold cursor-pointer ${
                             page === "dashboard"
-                                ? "bg-blue-400 text-white shadow-md"
-                                : "hover:outline hover:outline-2 outline-blue-400"
+                                ? "bg-primary text-white shadow-md"
+                                : "hover:outline hover:outline-2 outline-accent"
                         } rounded-lg`}
                         onClick={() => {
                             changeTab("dashboard");
@@ -55,8 +75,8 @@ const Admin = () => {
                     <div
                         className={`w-full flex px-5 py-2 items-center shadow-md gap-5 font-semibold cursor-pointer ${
                             page === "community"
-                                ? "bg-blue-400 text-white shadow-md"
-                                : "hover:outline hover:outline-2 outline-blue-400"
+                                ? "bg-primary text-white shadow-md"
+                                : "hover:outline hover:outline-2 outline-accent"
                         } rounded-lg`}
                         onClick={() => {
                             changeTab("community");
@@ -68,8 +88,8 @@ const Admin = () => {
                     <div
                         className={`w-full flex px-5 py-2 items-center shadow-md gap-5 font-semibold cursor-pointer ${
                             page === "explore"
-                                ? "bg-blue-400 text-white shadow-md"
-                                : "hover:outline hover:outline-2 outline-blue-400"
+                                ? "bg-primary text-white shadow-md"
+                                : "hover:outline hover:outline-2 outline-accent"
                         } rounded-lg`}
                         onClick={() => {
                             changeTab("explore");
@@ -81,8 +101,8 @@ const Admin = () => {
                     <div
                         className={`w-full flex px-5 py-2 items-center shadow-md gap-5 font-semibold cursor-pointer ${
                             page === "resources"
-                                ? "bg-blue-400 text-white shadow-md"
-                                : "hover:outline hover:outline-2 outline-blue-400"
+                                ? "bg-primary text-white shadow-md"
+                                : "hover:outline hover:outline-2 outline-accent"
                         } rounded-lg`}
                         onClick={() => {
                             changeTab("resources");
@@ -93,9 +113,9 @@ const Admin = () => {
                     </div>
                 </div>
 
-                <div className="row-span-1 px-5 flex justify-start items-center">
+                <div className="w-full px-5 flex justify-start items-center">
                     <div
-                        className="flex py-2 px-5 items-center gap-5 font-bold text-red-700 cursor-pointer rounded-lg  hover:bg-red-700 hover:shadow-md hover:text-white duration-300"
+                        className="w-full flex py-2 px-5 items-center shadow-md gap-5 bg-red-500 font-bold text-white cursor-pointer rounded-lg  hover:bg-white hover:text-red-700 hover:shadow-md duration-300 hover:outline hover:outline-2 outline-red-500"
                         onClick={() => {
                             handleLogout();
                         }}
@@ -108,16 +128,16 @@ const Admin = () => {
             <div className="col-span-4 p-5 overflow-y-scroll">
                 {/* Right Section */}
                 {page === "dashboard" ? (
-                  <DashboardAdmin />
-              ) : page === "community" ? (
-                  <CommunityAdmin />
-              ) : page === "explore" ? (
-                  <ExploreAdmin />
-              ) : page === "resources" ? (
-                  <ResourceAdmin />
-              ) : (
-                  ""
-              )}
+                    <DashboardAdmin />
+                ) : page === "community" ? (
+                    <CommunityAdmin />
+                ) : page === "explore" ? (
+                    <ExploreAdmin />
+                ) : page === "resources" ? (
+                    <ResourceAdmin />
+                ) : (
+                    ""
+                )}
             </div>
         </div>
     );

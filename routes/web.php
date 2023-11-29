@@ -28,5 +28,7 @@ Route::get('/insert-explore-data', [ExploreController::class, 'insertExploreData
 Route::get('/create-resource', [ResourceController::class, 'insertResourceData']);
 Route::post('/communities', [CommunityController::class, 'create']);
 Route::get('/communities', [CommunityController::class, 'index']);
+Route::put('/communities/{id}/approve', [CommunityController::class, 'approve']);
+Route::put('/communities/{id}/reject', [CommunityController::class, 'reject']);
 
 require __DIR__.'/auth.php';

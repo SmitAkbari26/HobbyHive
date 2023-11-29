@@ -28,4 +28,31 @@ class CommunityController extends Controller
         return response()->json(['communities' => $communities]);
     }
 
+    public function approve($id)
+    {
+        $community = Community::find($id);
+
+        if (!$community) {
+            return response()->json(['error' => 'Community not found'], 404);
+        }
+
+        // Your approval logic here
+        $community->update(['status' => 'approved']);
+
+        return response()->json(['message' => 'Community approved successfully']);
+    }
+
+    public function reject($id)
+    {
+        $community = Community::find($id);
+
+        if (!$community) {
+            return response()->json(['error' => 'Community not found'], 404);
+        }
+
+        // Your rejection logic here
+        $community->update(['status' => 'rejected']);
+
+        return response()->json(['message' => 'Community rejected successfully']);
+    }
 }

@@ -9,7 +9,9 @@ class Community extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['username', 'name', 'description', 'members', 'popularity'];
+    protected $fillable = [
+        'name', 'description', 'members', 'rating', 'status', 'username',
+    ];
 
     protected $casts = [
         'members' => 'integer',
