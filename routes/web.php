@@ -5,7 +5,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\CommunityController;
-
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,5 +33,6 @@ Route::put('/communities/{id}/reject', [CommunityController::class, 'reject']);
 Route::post('/add-explore', [ExploreController::class, 'addExplore']);
 Route::get('/explore', [ExploreController::class, 'index']);
 Route::get('/explore/{id}', [ExploreController::class, 'show']);
+Route::get('/users', [UserController::class, 'index']);
 
 require __DIR__ . '/auth.php';

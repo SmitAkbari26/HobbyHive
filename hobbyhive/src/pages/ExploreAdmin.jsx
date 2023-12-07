@@ -178,7 +178,7 @@ const ExploreAdmin = () => {
                             </div>
                         </div>
 
-                        <div>
+                         <div>
                             <label
                                 htmlFor="subcategories"
                                 className="block text-sm font-medium leading-6 text-gray-700"
@@ -192,8 +192,7 @@ const ExploreAdmin = () => {
                                     type="text"
                                     autoComplete="subcategories"
                                     required
-                                    className="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6 focus:outline-none focus:ring-text-gray-900 caret-accent"
-                                    value={formData.subcategories.join(",")} // Convert array to comma-separated values
+                                    className="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6 focus:outline-none focus:ring-text-gray-900 caret-accent" // Convert array to comma-separated values
                                     onChange={handleSubcategoriesChange}
                                 />
                                 {errors.subcategories && (

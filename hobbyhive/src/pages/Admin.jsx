@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { BsUpload } from "react-icons/bs";
-import { GrHistory, GrStatusUnknown } from "react-icons/gr";
-import { BiLogOutCircle, BiSolidDashboard } from "react-icons/bi";
-import { FaFolder, FaMoneyCheck, FaUsers } from "react-icons/fa";
+import { RiCommunityLine } from "react-icons/ri";
+import { RxDashboard } from "react-icons/rx";
+import { GrResources } from "react-icons/gr";
+import { MdOutlineExplore } from "react-icons/md";
+import { IoIosLogOut } from "react-icons/io";
 import CommunityAdmin from "./CommunityAdmin";
 import ExploreAdmin from "./ExploreAdmin";
 import ResourceAdmin from "./ResourceAdmin";
@@ -60,7 +61,7 @@ const Admin = () => {
                 </div>
                 <div className="row-span-3 flex flex-col justify-start gap-5 items-start p-5">
                     <div
-                        className={`w-full flex px-5 py-2 shadow-md items-center gap-5 font-semibold cursor-pointer ${
+                        className={`w-full flex px-5 py-2 shadow-md items-center gap-5  cursor-pointer ${
                             page === "dashboard"
                                 ? "bg-primary text-white shadow-md"
                                 : "hover:outline hover:outline-2 outline-accent"
@@ -69,11 +70,11 @@ const Admin = () => {
                             changeTab("dashboard");
                         }}
                     >
-                        <BiSolidDashboard />
+                        <RxDashboard />
                         <h1 className="text-center">Dashboard</h1>
                     </div>
                     <div
-                        className={`w-full flex px-5 py-2 items-center shadow-md gap-5 font-semibold cursor-pointer ${
+                        className={`w-full flex px-5 py-2 items-center shadow-md gap-5  cursor-pointer ${
                             page === "community"
                                 ? "bg-primary text-white shadow-md"
                                 : "hover:outline hover:outline-2 outline-accent"
@@ -82,11 +83,11 @@ const Admin = () => {
                             changeTab("community");
                         }}
                     >
-                        <FaFolder />
+                        <RiCommunityLine />
                         <h1 className="text-center">Community</h1>
                     </div>
                     <div
-                        className={`w-full flex px-5 py-2 items-center shadow-md gap-5 font-semibold cursor-pointer ${
+                        className={`w-full flex px-5 py-2 items-center shadow-md gap-5  cursor-pointer ${
                             page === "explore"
                                 ? "bg-primary text-white shadow-md"
                                 : "hover:outline hover:outline-2 outline-accent"
@@ -95,11 +96,11 @@ const Admin = () => {
                             changeTab("explore");
                         }}
                     >
-                        <GrHistory />
+                        <MdOutlineExplore />
                         <h1 className="text-center">Explore</h1>
                     </div>
                     <div
-                        className={`w-full flex px-5 py-2 items-center shadow-md gap-5 font-semibold cursor-pointer ${
+                        className={`w-full flex px-5 py-2 items-center shadow-md gap-5  cursor-pointer ${
                             page === "resources"
                                 ? "bg-primary text-white shadow-md"
                                 : "hover:outline hover:outline-2 outline-accent"
@@ -108,24 +109,24 @@ const Admin = () => {
                             changeTab("resources");
                         }}
                     >
-                        <FaUsers />
+                        <GrResources/>
                         <h1 className="text-center">Resources</h1>
                     </div>
                 </div>
 
                 <div className="w-full px-5 flex justify-start items-center">
                     <div
-                        className="w-full flex py-2 px-5 items-center shadow-md gap-5 bg-red-500 font-bold text-white cursor-pointer rounded-lg  hover:bg-white hover:text-red-700 hover:shadow-md duration-300 hover:outline hover:outline-2 outline-red-500"
+                        className="w-full flex py-2 px-5 items-center shadow-md gap-5 bg-red-500 font-bold text-white cursor-pointer rounded-lg  hover:bg-white hover:text-red-700 hover:shadow-md hover:outline hover:outline-2 outline-red-500"
                         onClick={() => {
                             handleLogout();
                         }}
                     >
-                        <BiLogOutCircle />
+                        <IoIosLogOut />
                         <h1 className="text-center drop-shadow-lg">Logout</h1>
                     </div>
                 </div>
             </div>
-            <div className="col-span-4 p-5 overflow-y-scroll">
+            <div className="col-span-4 px-5 overflow-y-scroll">
                 {/* Right Section */}
                 {page === "dashboard" ? (
                     <DashboardAdmin />
