@@ -18,6 +18,7 @@ import Community from "./pages/Community";
 import Admin from "./pages/Admin";
 import ExploreDetails from "./components/ExploreDetails";
 import Chat from "./components/Chat";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 const App = () => {
     const location = useLocation();
@@ -32,7 +33,7 @@ const App = () => {
         location.pathname.startsWith("/password-reset");
 
     return (
-        <>
+        <ErrorBoundary>
             {!isLoginPage ? <Navbar /> : ""}
             <Routes>
                 <Route element={<AuthLayout />}>
@@ -90,7 +91,7 @@ const App = () => {
                 </Route>
             </Routes>
             {!isLoginPage ? <Footer /> : ""}
-        </>
+        </ErrorBoundary>
     );
 };
 

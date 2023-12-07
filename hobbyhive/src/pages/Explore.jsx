@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import PrimaryButton from "../components/PrimaryButton";
+import { Link, useLocation } from "react-router-dom";
 import SecondaryButton from "../components/SecondaryButton";
 import Axios from "../api/axios";
 
 const Explore = () => {
+    const location = useLocation();
+    const searchQuery = new URLSearchParams(location.search).get("query");
     const [exploreData, setExploreData] = useState([]);
 
     useEffect(() => {
@@ -18,6 +19,13 @@ const Explore = () => {
             });
     }, []); // Empty dependency array ensures this effect runs only once
 
+    // Function to filter exploreData based on searchQuery
+    const filteredExploreData = searchQuery
+        ? exploreData.filter((item) =>
+              item.title.toLowerCase().includes(searchQuery.toLowerCase())
+          )
+        : exploreData;
+
     return (
         <div className="min-h-screen bg-gray-100 font-roboto tracking-wider">
             <div className="container mx-auto p-8">
@@ -28,7 +36,7 @@ const Explore = () => {
                     <span className="text-secondary">Hobbies</span>
                 </h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                    {exploreData.map((item) => (
+                    {filteredExploreData.map((item) => (
                         <div
                             key={item.id}
                             className="relative group bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-2 hover:scale-105"

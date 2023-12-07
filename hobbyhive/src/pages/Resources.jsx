@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import SecondaryButton from "../components/SecondaryButton";
 
 const resources = [
@@ -30,6 +30,14 @@ const resources = [
 ];
 
 const Resources = () => {
+    const location = useLocation();
+    const searchQuery = new URLSearchParams(location.search).get("query");
+
+    const filteredResources = searchQuery
+        ? resources.filter((item) =>
+              item.title.toLowerCase().includes(searchQuery.toLowerCase())
+          )
+        : resources;
     return (
         <div className="min-h-screen bg-gray-100 font-roboto tracking-wider">
             <div className="container mx-auto p-8">
@@ -39,7 +47,7 @@ const Resources = () => {
                     <span className="text-secondary">Knowledge</span>
                 </h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                    {resources.map((item, index) => (
+                    {filteredResources.map((item, index) => (
                         <div
                             key={index}
                             className="group bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-2 hover:scale-105"

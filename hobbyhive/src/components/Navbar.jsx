@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { FiUser } from "react-icons/fi";
 import { PiNotification } from "react-icons/pi";
 import { FiSearch } from "react-icons/fi";
@@ -8,6 +8,39 @@ import useAuthContext from "../context/AuthContext";
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [showPopup, setShowPopup] = useState(false);
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const handleSearchClick = () => {
+        // Show the popup when the search icon is clicked
+        setShowPopup(true);
+    };
+
+    const handleSearch = () => {
+        // Close the popup and perform the search logic
+        setShowPopup(false);
+
+        const currentPath = location.pathname.toLowerCase();
+        let page;
+
+        if (currentPath.includes("explore")) {
+            page = "explore";
+        } else if (currentPath.includes("resources")) {
+            page = "resources";
+        } else {
+            page = "explore";
+        }
+
+        // Perform the search logic, e.g., navigate to the page with the search query
+        // ...
+        if (page === "explore") {
+            navigate(`/explore?query=${searchQuery}`);
+        } else if (page === "resources") {
+            navigate(`/resources?query=${searchQuery}`);
+        }
+    };
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -144,12 +177,38 @@ const Navbar = () => {
                         <ul className="font-medium my-2 -tracking-tighter flex flex-col p-4 md:p-0 border border-gray-100 rounded-lg bg-background md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white">
                             <div className="flex gap-4">
                                 <li>
-                                    <NavLink
-                                        to="/"
+                                    <button
                                         className="w-8 h-8 flex justify-center items-center  text-gray-700 rounded-full hover:text-primary md:hover:bg-transparent hover:ring-2 hover:ring-primary"
+                                        onClick={handleSearchClick}
                                     >
                                         <FiSearch className="w-6 h-6 transition-transform transform scale-100 hover:scale-90 sm" />
-                                    </NavLink>
+                                    </button>
+                                    {/* <Search /> */}
+                                    {showPopup && (
+                                        <div className="fixed top-0 left-0 w-full h-full flex justify-center bg-gray-800 bg-opacity-50 z-10 font-roboto">
+                                            <div className="w-[90%] p-8 rounded-lg">
+                                                <div className="mb-4 flex gap-4">
+                                                    <input
+                                                        type="text"
+                                                        value={searchQuery}
+                                                        onChange={(e) =>
+                                                            setSearchQuery(
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                        className="w-full rounded-md py-3 px-3 focus:outline-none ring-2 ring-white border-none focus:ring-accent"
+                                                        placeholder="Search Here..."
+                                                    />
+                                                    <button
+                                                        onClick={handleSearch}
+                                                        className="bg-primary text-white py-4 px-5 rounded-md hover:bg-secondary"
+                                                    >
+                                                        <FiSearch />
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
                                 </li>
                                 <li>
                                     <NavLink
