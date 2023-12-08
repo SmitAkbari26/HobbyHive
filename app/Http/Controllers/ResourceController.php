@@ -7,15 +7,29 @@ use App\Models\Resource;
 
 class ResourceController extends Controller
 {
-    public function insertResourceData()
+    public function store(Request $request)
     {
-        Resource::create([
-            'title' => 'Sports & Fitness Resources',
-            'description' => 'Discover fitness routines, workout plans, and sports-related articles and videos. Stay fit and healthy while pursuing your favorite sports and activities.',
-            'new_links' => ['Link 1', 'Link 2'],
-            'blogs' => ['Blog 1', 'Blog 2'],
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'new_links' => 'required|string',
+            'blogs' => 'required|string',
         ]);
 
-        return response()->json(['message' => 'Resource created successfully']);
+        $resource = Resource::create([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'new_links' => $request->input('new_links'),
+            'blogs' => $request->input('blogs'),
+        ]);
+
+        return response()->json(['resource' => $resource]);
+    }
+
+    public function index()
+    {
+        $resources = Resource::all();
+
+        return response()->json(['resources' => $resources]);
     }
 }

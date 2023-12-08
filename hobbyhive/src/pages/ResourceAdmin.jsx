@@ -1,16 +1,13 @@
-import React from 'react'
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import useAuthContext from "../context/AuthContext";
-
+import React, { useState } from "react";
+import Axios from "../api/axios";
 
 const ResourceAdmin = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
         title: "",
         description: "",
-        image: null,
-        subcategories: [],
+        new_links: [],
+        blogs: [],
     });
 
     const [errors, setErrors] = useState({});
@@ -22,58 +19,46 @@ const ResourceAdmin = () => {
         });
     };
 
-    const handleImageChange = (e) => {
-        // Handle the case when the file input value is null or undefined
-        const image = e.target.files ? e.target.files[0] : null;
+    const handleArrayChange = (e) => {
+        // Assuming that new_links and blogs are arrays of strings
+        const arrayValue = e.target.value.split(",").map((item) => item.trim());
 
         setFormData({
             ...formData,
-            image,
+            [e.target.name]: arrayValue,
         });
     };
 
-    const handleSubcategoriesChange = (e) => {
-        // Split the comma-separated values into an array
-        const subcategoriesArray = e.target.value.split(",");
-
-        setFormData({
-            ...formData,
-            subcategories: subcategoriesArray,
-        });
-    };
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
 
-        const exploreData = new FormData();
-        exploreData.append("title", formData.title);
-        exploreData.append("description", formData.description);
-        exploreData.append("image", formData.image);
-        // Convert subcategories array to a JSON string and append it to FormData
-        exploreData.append(
-            "subcategories",
-            JSON.stringify(formData.subcategories)
-        );
+        const resourceData = new FormData();
+        resourceData.append("title", formData.title);
+        resourceData.append("description", formData.description);
+        resourceData.append("new_links", JSON.stringify(formData.new_links));
+        resourceData.append("blogs", JSON.stringify(formData.blogs));
 
-        Axios.post("/add-explore", exploreData)
-            .then(() => {
-                setIsLoading(false);
-                setErrors({}); // Clear previous errors
-                setFormData({
-                    title: "",
-                    description: "",
-                    image: null,
-                    subcategories: [],
-                }); // Clear form data
-            })
-            .catch((error) => {
-                setIsLoading(false);
-                if (error.response && error.response.data.errors) {
-                    setErrors(error.response.data.errors);
-                }
-                console.error("Error adding explore:", error);
-            });
+        try {
+            const response = await Axios.post("/add-resource", resourceData);
+
+            setIsLoading(false);
+            setErrors({}); // Clear previous errors
+            setFormData({
+                title: "",
+                description: "",
+                new_links: [],
+                blogs: [],
+            }); // Clear form data
+
+            console.log("Resource added:", response.data.resource);
+        } catch (error) {
+            setIsLoading(false);
+            if (error.response && error.response.data.errors) {
+                setErrors(error.response.data.errors);
+            }
+            console.error("Error adding resource:", error);
+        }
     };
 
     return (
@@ -156,26 +141,25 @@ const ResourceAdmin = () => {
                         </div>
 
                         <div>
-                            <div className="flex items-center justify-between">
-                                <label
-                                    htmlFor="image"
-                                    className="block text-sm font-medium leading-6 text-gray-700"
-                                >
-                                    Image
-                                </label>
-                            </div>
+                            <label
+                                htmlFor="new_links"
+                                className="block text-sm font-medium leading-6 text-gray-700"
+                            >
+                                New Links (Comma-separated)
+                            </label>
                             <div className="mt-2">
                                 <input
-                                    id="image"
-                                    name="image"
-                                    type="file"
+                                    id="new_links"
+                                    name="new_links"
+                                    type="text"
+                                    autoComplete="new_links"
                                     required
-                                    className="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6 focus:outline-none focus-ring caret-accent"
-                                    onChange={handleImageChange}
+                                    className="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6 focus:outline-none focus:ring-text-gray-900 caret-accent"
+                                    onChange={handleArrayChange}
                                 />
-                                {errors.image && (
+                                {errors.new_links && (
                                     <p className="text-red-500 pt-1 text-center text-sm">
-                                        {errors.image[0]}
+                                        {errors.new_links[0]}
                                     </p>
                                 )}
                             </div>
@@ -183,24 +167,24 @@ const ResourceAdmin = () => {
 
                         <div>
                             <label
-                                htmlFor="subcategories"
+                                htmlFor="blogs"
                                 className="block text-sm font-medium leading-6 text-gray-700"
                             >
-                                Subcategories (Comma-separated)
+                                Blogs (Comma-separated)
                             </label>
                             <div className="mt-2">
                                 <input
-                                    id="subcategories"
-                                    name="subcategories"
+                                    id="blogs"
+                                    name="blogs"
                                     type="text"
-                                    autoComplete="subcategories"
+                                    autoComplete="blogs"
                                     required
-                                    className="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6 focus:outline-none focus:ring-text-gray-900 caret-accent" // Convert array to comma-separated values
-                                    onChange={handleSubcategoriesChange}
+                                    className="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6 focus:outline-none focus:ring-text-gray-900 caret-accent"
+                                    onChange={handleArrayChange}
                                 />
-                                {errors.subcategories && (
+                                {errors.blogs && (
                                     <p className="text-red-500 pt-1 text-center text-sm">
-                                        {errors.subcategories[0]}
+                                        {errors.blogs[0]}
                                     </p>
                                 )}
                             </div>
@@ -222,4 +206,4 @@ const ResourceAdmin = () => {
     );
 };
 
-export default ResourceAdmin
+export default ResourceAdmin;

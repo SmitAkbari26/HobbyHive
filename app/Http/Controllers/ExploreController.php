@@ -13,7 +13,7 @@ class ExploreController extends Controller
             'title' => 'required|string',
             'description' => 'required|string',
             'image' => 'required|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'subcategories' => 'string',
+            'subcategories' => 'required|string',
         ]);
 
         if ($request->hasFile('image')) {

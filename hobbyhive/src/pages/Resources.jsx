@@ -1,43 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import SecondaryButton from "../components/SecondaryButton";
-
-const resources = [
-    {
-        title: "Art & Creativity Resources",
-        description:
-            "Explore a wide range of articles, videos, and tutorials related to art, painting, and creativity. Enhance your artistic skills and discover new techniques.",
-        link: "/resources/art",
-    },
-    {
-        title: "Music & Instruments Resources",
-        description:
-            "Find resources to help you learn and master musical instruments like the guitar, piano, and more. Access sheet music, video lessons, and more.",
-        link: "/resources/music",
-    },
-    {
-        title: "Technology & Coding Resources",
-        description:
-            "Stay up-to-date with the latest tech trends. Access coding tutorials, web development guides, and programming resources to boost your technical skills.",
-        link: "/resources/technology",
-    },
-    {
-        title: "Sports & Fitness Resources",
-        description:
-            "Discover fitness routines, workout plans, and sports-related articles and videos. Stay fit and healthy while pursuing your favorite sports and activities.",
-        link: "/resources/sports",
-    },
-];
+import Axios from "../api/axios";
 
 const Resources = () => {
     const location = useLocation();
     const searchQuery = new URLSearchParams(location.search).get("query");
+
+    const [resources, setResources] = useState([]);
+
+    useEffect(() => {
+        // Fetch data from the API endpoint
+        Axios.get("/resource")
+            .then((response) => {
+                setResources(response.data.resources);
+                console.log(response.data.resources);
+            })
+            .catch((error) => {
+                console.error("Error fetching Explore data:", error);
+            });
+    }, []);
 
     const filteredResources = searchQuery
         ? resources.filter((item) =>
               item.title.toLowerCase().includes(searchQuery.toLowerCase())
           )
         : resources;
+
     return (
         <div className="min-h-screen bg-gray-100 font-roboto tracking-wider">
             <div className="container mx-auto p-8">

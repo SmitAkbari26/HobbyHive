@@ -13,8 +13,8 @@ class Resource extends Model
 
     protected $fillable = ['title', 'description', 'new_links', 'blogs'];
 
-    protected $casts = [
-        'new_links' => 'json',
-        'blogs' => 'json',
-    ];
+    // protected $casts = [
+    //     'new_links' => 'json',
+    //     'blogs' => 'json',
+    // ];
 }

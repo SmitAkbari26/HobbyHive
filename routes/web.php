@@ -25,17 +25,23 @@ Route::get('/', function () {
 
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
 Route::get('/insert-explore-data', [ExploreController::class, 'insertExploreData']);
-Route::get('/create-resource', [ResourceController::class, 'insertResourceData']);
+Route::post('/add-explore', [ExploreController::class, 'addExplore']);
+Route::get('/explore', [ExploreController::class, 'index']);
+Route::get('/explore/{id}', [ExploreController::class, 'show']);
+
+Route::post('/add-resource', [ResourceController::class, 'store']);
+Route::get('/resource', [ResourceController::class, 'index']);
+
 Route::post('/communities', [CommunityController::class, 'create']);
 Route::get('/communities', [CommunityController::class, 'index']);
 Route::put('/communities/{id}/approve', [CommunityController::class, 'approve']);
 Route::put('/communities/{id}/reject', [CommunityController::class, 'reject']);
-Route::post('/add-explore', [ExploreController::class, 'addExplore']);
-Route::get('/explore', [ExploreController::class, 'index']);
-Route::get('/explore/{id}', [ExploreController::class, 'show']);
+
 Route::get('/users', [UserController::class, 'index']);
 Route::get('/users/{id}', [UserController::class, 'show']);
+
 Route::get('/get-image/{filename}', [ImageController::class, 'show']);
 
 
