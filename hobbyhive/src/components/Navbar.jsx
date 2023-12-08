@@ -22,6 +22,8 @@ const Navbar = () => {
         // Close the popup and perform the search logic
         setShowPopup(false);
 
+        setSearchQuery("");
+
         const currentPath = location.pathname.toLowerCase();
         let page;
 
