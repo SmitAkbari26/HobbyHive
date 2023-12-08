@@ -32,7 +32,7 @@ const Navbar = () => {
         } else if (currentPath.includes("resources")) {
             page = "resources";
         } else {
-            page = "explore";
+            page = "";
         }
 
         // Perform the search logic, e.g., navigate to the page with the search query

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Axios from "../api/axios";
 
 const UserList = ({ selectedSkill }) => {
@@ -14,29 +15,49 @@ const UserList = ({ selectedSkill }) => {
                 console.error("Error fetching user data:", error);
             });
     }, []);
+
     const filteredUsers = users.filter((user) =>
         user.subcategory.includes(selectedSkill.trim())
     );
 
     return (
         <div className="mt-8">
-            <h2 className="text-2xl font-semibold mb-4">User List</h2>
-            <table className="min-w-full bg-gray-100">
+            <h2 className="text-3xl font-semibold mb-4 text-gray-800">
+                User List
+            </h2>
+            <table className="min-w-full bg-white shadow-md rounded-md overflow-hidden">
                 <thead>
-                    <tr>
-                        <th className="py-2 px-4 border-b">Name</th>
-                        <th className="py-2 px-4 border-b">Email</th>
-                        <th className="py-2 px-4 border-b">Skills</th>
-                        {/* Add more columns as needed */}
+                    <tr className="bg-gray-200">
+                        <th className="py-3 px-4 border-b">Name</th>
+                        <th className="py-3 px-4 border-b">Email</th>
+                        <th className="py-3 px-4 border-b">Skills</th>
+                        <th className="py-3 px-4 border-b">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="text-center"> 
                     {filteredUsers.map((user) => (
-                        <tr key={user.id}>
-                            <td className="py-2 px-4 border-b">{user.name}</td>
-                            <td className="py-2 px-4 border-b">{user.email}</td>
-                            <td className="py-2 px-4 border-b">
+                        <tr
+                            key={user.id}
+                            className="hover:bg-gray-100 transition duration-300"
+                        >
+                            <td className="py-3 px-4 border-b">{user.name}</td>
+                            <td className="py-3 px-4 border-b">{user.email}</td>
+                            <td className="py-3 px-4 border-b">
                                 {user.subcategory}
+                            </td>
+                            <td className="py-3 px-4 border-b">
+                                <Link
+                                    to={`/profile/${user.id}`}
+                                    className="text-blue-500 hover:underline mr-2"
+                                >
+                                    Profile
+                                </Link>
+                                <Link
+                                    to="/chat"
+                                    className="text-green-500 hover:underline"
+                                >
+                                    Chat
+                                </Link>
                             </td>
                         </tr>
                     ))}

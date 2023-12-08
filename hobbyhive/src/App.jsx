@@ -19,6 +19,7 @@ import Admin from "./pages/Admin";
 import ExploreDetails from "./components/ExploreDetails";
 import Chat from "./components/Chat";
 import ErrorBoundary from "./components/ErrorBoundary";
+import UserProfile from "./components/UserProfile";
 
 const App = () => {
     const location = useLocation();
@@ -30,7 +31,8 @@ const App = () => {
         location.pathname === "/email/verify/success" ||
         location.pathname === "/admin" ||
         location.pathname === "/chat" ||
-        location.pathname.startsWith("/password-reset");
+        location.pathname.startsWith("/password-reset") ||
+        location.pathname.startsWith("/profile");
 
     return (
         <ErrorBoundary>
@@ -38,43 +40,30 @@ const App = () => {
             <Routes>
                 <Route element={<AuthLayout />}>
                     <Route exact path="/profile" element={<Profile />} />
-                </Route>
-                <Route>
-                    <Route exact path="/" element={<Home />} />
-                </Route>
-                <Route>
-                    <Route exact path="/admin" element={<Admin />} />
-                </Route>
-                <Route>
                     <Route exact path="/chat" element={<Chat />} />
                 </Route>
-                <Route>
+                    <Route exact path="/" element={<Home />} />
+                    <Route exact path="/admin" element={<Admin />} />
                     <Route exact path="/faqs" element={<Faqs />} />
-                </Route>
-                <Route>
                     <Route exact path="/contact" element={<Contact />} />
-                </Route>
-                <Route>
                     <Route exact path="/explore" element={<Explore />} />
                     <Route
                         exact
                         path="/explore/:id"
                         element={<ExploreDetails />}
                     />
-                </Route>
-                <Route>
+                    <Route
+                        exact
+                        path="/profile/:id"
+                        element={<UserProfile />}
+                    />
                     <Route exact path="/resources" element={<Resources />} />
-                </Route>
-                <Route>
                     <Route exact path="/community" element={<Community />} />
-                </Route>
-                <Route>
                     <Route
                         exact
                         path="/email/verify/success"
                         element={<Verify />}
                     />
-                </Route>
                 <Route element={<GuestLayout />}>
                     <Route exact path="/login" element={<Login />} />
                     <Route exact path="/register" element={<Register />} />

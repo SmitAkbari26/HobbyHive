@@ -18,7 +18,7 @@ const DashboardAdmin = () => {
         }
         const option = {
             legend: {
-                data: ["bar", "bar2"],
+                data: ["bar", "bar1"],
             },
             xAxis: {
                 data: xAxisData,
@@ -40,7 +40,7 @@ const DashboardAdmin = () => {
                     },
                 },
                 {
-                    name: "bar2",
+                    name: "bar1",
                     type: "bar",
                     data: data2,
                     emphasis: {
